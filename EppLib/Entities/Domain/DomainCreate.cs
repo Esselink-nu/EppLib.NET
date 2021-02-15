@@ -19,7 +19,7 @@ namespace EppLib.Entities
 {
     public class DomainCreate : DomainBase<DomainCreateResponse>
     {
-        private readonly IList<string> nameServers = new List<string>();
+        private readonly IList<NameServer> nameServers = new List<NameServer>();
 
         private readonly IList<DomainContact> domainContacts = new List<DomainContact>();
 
@@ -29,7 +29,7 @@ namespace EppLib.Entities
 
         public string RegistrantContactId { get; set; }
 
-        public IList<string> NameServers
+        public IList<NameServer> NameServers
         {
             get { return nameServers; }
         }
@@ -58,9 +58,11 @@ namespace EppLib.Entities
                 period.SetAttribute("unit", Period.Unit);
             }
 
-            if (NameServers != null && NameServers.Count>0)
+            if (NameServers != null && NameServers.Count > 0)
             {
-                domainCreate.AppendChild(CreateNameServerElement(doc, NameServers));
+                //TODO: Add option for hostObj way
+                //domainCreate.AppendChild(CreateNameServerElement(doc, NameServers));
+                domainCreate.AppendChild(CreateNameServerElement(doc, NameServers, true));
             }
             
             if (RegistrantContactId != null)
@@ -70,7 +72,7 @@ namespace EppLib.Entities
             
             foreach (var contact in DomainContacts)
             {
-                var contact_element = AddXmlElement(doc, domainCreate, "domain:contact", contact.Id,namespaceUri);
+                var contact_element = AddXmlElement(doc, domainCreate, "domain:contact", contact.Id, namespaceUri);
 
                 contact_element.SetAttribute("type", contact.Type);
             }

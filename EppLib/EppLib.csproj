@@ -12,6 +12,7 @@
     <Compile Include="Entities\Contact\ContactCheckResult.cs" />
     <Compile Include="Entities\Domain\DomainReleaseResponse.cs" />
     <Compile Include="Entities\Domain\DomainRelease.cs" />
+    <Compile Include="Entities\Domain\NameServer.cs" />
     <Compile Include="Extensions\Fury\FuryContactCreateExtension.cs" />
     <Compile Include="Extensions\Fury\FuryContactUpdateExtension .cs" />
     <Compile Include="Extensions\Fury\FuryDomainCreateExtension.cs" />

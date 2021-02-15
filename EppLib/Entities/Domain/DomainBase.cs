@@ -25,13 +25,27 @@ namespace EppLib.Entities
         {
         }
 
-        protected XmlNode CreateNameServerElement(XmlDocument doc, IEnumerable<string> nameServers)
+        protected XmlNode CreateNameServerElement(XmlDocument doc, IEnumerable<NameServer> nameServers, bool useHostAttr = false)
         {
             var nameServerElement = doc.CreateElement("domain:ns", namespaceUri);
 
             foreach (var serverName in nameServers)
             {
-                AddXmlElement(doc, nameServerElement, "domain:hostObj", serverName,namespaceUri);
+                if (useHostAttr)
+                {
+                    var hostAttr = AddXmlElement(doc, nameServerElement, "domain:hostAttr", "", namespaceUri);
+
+                    AddXmlElement(doc, nameServerElement, "domain:hostName", serverName.HostName, namespaceUri);
+
+                    foreach (var address in serverName.HostAddresses)
+                    {
+                        var hostAddr = AddXmlElement(doc, hostAttr, "domain:hostAddr", address.IPAddress, namespaceUri);
+
+                        hostAddr.SetAttribute("ip", address.IPVersion);
+                    }
+                }
+                else
+                    AddXmlElement(doc, nameServerElement, "domain:hostObj", serverName.HostName, namespaceUri);
             }
 
             return nameServerElement;
