@@ -35,7 +35,7 @@ namespace EppLib.Entities
                 {
                     var hostAttr = AddXmlElement(doc, nameServerElement, "domain:hostAttr", "", namespaceUri);
 
-                    AddXmlElement(doc, nameServerElement, "domain:hostName", serverName.HostName, namespaceUri);
+                    AddXmlElement(doc, hostAttr, "domain:hostName", serverName.HostName, namespaceUri);
 
                     foreach (var address in serverName.HostAddresses)
                     {
