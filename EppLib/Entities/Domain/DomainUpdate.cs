@@ -105,7 +105,7 @@ namespace EppLib.Entities
                 {
                     add_remove_element = doc.CreateElement(tag_name, namespaceURI);
 
-                    add_remove_element.AppendChild(CreateNameServerElement(doc, add_remove_items.NameServers));
+                    add_remove_element.AppendChild(CreateNameServerElement(doc, add_remove_items.NameServers, true));
                 }
 
                 if (add_remove_items.DomainContacts != null &&
